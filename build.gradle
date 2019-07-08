@@ -1,0 +1,52 @@
+version '1.0.0'
+
+apply plugin: 'java' //指定java插件
+apply plugin: 'scala' //指定scala插件
+
+sourceCompatibility = 1.8
+
+sourceSets {
+    main {
+        scala {
+            srcDirs = ['src/main/scala', 'src/main/java']
+        }
+        java {
+            srcDirs = []
+        }
+    }
+
+    test {
+        scala {
+            srcDirs = ['src/test/scala', 'src/test/java']
+        }
+        java {
+            srcDirs = []
+        }
+    }
+}
+
+repositories {
+    //由于国内可能无法正常访问maven中心库，这里就填写了两个基本上能正常访问的maven库地址
+    maven {
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    maven {
+        url 'https://maven.ibiblio.org/maven2/'
+    }
+}
+
+dependencies {
+    compile group: 'com.typesafe.akka', name: 'akka-actor_2.12', version: '2.5.21'
+    //集群
+    // https://mvnrepository.com/artifact/com.typesafe.akka/akka-cluster
+    compile group: 'com.typesafe.akka', name: 'akka-cluster_2.12', version: '2.5.21'
+    compile group: 'com.typesafe.akka', name: 'akka-cluster-tools_2.12', version: '2.5.21'
+    compile group: 'com.typesafe.akka', name: 'akka-persistence_2.12', version: '2.5.21'
+
+    compile group: 'org.iq80.leveldb', name: 'leveldb', version: '0.7'
+    compile group: 'org.fusesource.leveldbjni', name: 'leveldbjni-all', version: '1.8'
+    testCompile group: 'com.typesafe.akka', name: 'akka-testkit_2.12', version: '2.5.21'
+    testCompile group: 'org.scalatest', name: 'scalatest_2.12', version: '3.2.0-SNAP10'
+    compile group: 'commons-io', name: 'commons-io', version: '2.4'
+
+}
