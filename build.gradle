@@ -2,6 +2,10 @@ version '1.0.0'
 
 apply plugin: 'java' //指定java插件
 apply plugin: 'scala' //指定scala插件
+apply plugin: 'application'
+
+
+mainClassName = 'MyMain'
 
 sourceCompatibility = 1.8
 
@@ -24,6 +28,13 @@ sourceSets {
         }
     }
 }
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'MyMain'
+    }
+}
+
 
 repositories {
     //由于国内可能无法正常访问maven中心库，这里就填写了两个基本上能正常访问的maven库地址

@@ -7,6 +7,16 @@ public class MyMain {
         Thread.sleep(5000);
         BootStrap.startBackend(2552, "backend");
         BootStrap.startWorker(0,new WorkProcess());
+        BootStrap.startWorker(0,new WorkProcess());
+        BootStrap.startWorker(0,new WorkProcess());
+        BootStrap.startWorker(0,new WorkProcess());
+        BootStrap.startWorker(0,new WorkProcess());
+        BootStrap.startWorker(0,new WorkProcess());
+//        BootStrap.startWorker(6667,new WorkProcess());
+//        BootStrap.startWorker(6668,new WorkProcess());
+//        BootStrap.startWorker(6669,new WorkProcess());
+//        BootStrap.startWorker(6670,new WorkProcess());
+
         Thread.sleep(5000);
         BootStrap.startFrontend(0, DefaultWorkProducer.class, WorkResultConsumer.class,new DefaultResultHandler());
     }

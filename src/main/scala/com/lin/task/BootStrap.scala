@@ -106,11 +106,12 @@ object BootStrap {
     }
   }
 
-  def produce(frontend: ActorRef): Unit = {
+  def produce(producer: ActorRef): Unit = {
     var n = 1
     while (true){
-      frontend ! WorkSource(n.toString,n.toString,n)
+      producer! Tick(WorkSource(n.toString,n.toString,n))
       n += 1
+//      Thread.sleep(1)
     }
 
   }

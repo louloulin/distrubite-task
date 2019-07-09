@@ -8,15 +8,8 @@ import akka.actor.Actor
 import akka.actor.ActorLogging
 import akka.actor.ActorRef
 
-object WorkProducer {
-
-  case object Tick
-
-}
-
 class WorkProducer(frontend: ActorRef) extends Actor with ActorLogging {
 
-  import WorkProducer._
   import context.dispatcher
 
   def scheduler = context.system.scheduler
