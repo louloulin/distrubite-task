@@ -11,34 +11,51 @@ object WorkState {
     doneWorkIds = Set.empty)
 
   trait WorkDomainEvent
+
   case class WorkAccepted(work: Work) extends WorkDomainEvent
+
   case class WorkStarted(workId: String) extends WorkDomainEvent
+
   case class WorkCompleted(workId: String, result: Any) extends WorkDomainEvent
+
   case class WorkerFailed(workId: String) extends WorkDomainEvent
+
   case class WorkerTimedOut(workId: String) extends WorkDomainEvent
 
 }
 
-case class WorkState private (
-  private val pendingWork: Queue[Work],
-  private val workInProgress: Map[String, Work],
-  private val acceptedWorkIds: Set[String],
-  private val doneWorkIds: Set[String]) {
+case class WorkState private(
+                              private val pendingWork: Queue[Work],
+                              private val workInProgress: Map[String, Work],
+                              private val acceptedWorkIds: Set[String],
+                              private val doneWorkIds: Set[String]) {
 
   import WorkState._
 
   def hasWork: Boolean = pendingWork.nonEmpty
+
   def nextWork: Work = pendingWork.head
+
   def isAccepted(workId: String): Boolean = acceptedWorkIds.contains(workId)
+
   def isInProgress(workId: String): Boolean = workInProgress.contains(workId)
+
   def isDone(workId: String): Boolean = doneWorkIds.contains(workId)
 
+  /**
+    * 更新work事件
+    *
+    * @param event
+    * @return
+    */
   def updated(event: WorkDomainEvent): WorkState = event match {
+    // work accepted
     case WorkAccepted(work) ⇒
       copy(
+        //等待队列中
         pendingWork = pendingWork enqueue work,
         acceptedWorkIds = acceptedWorkIds + work.workId)
-
+    // work started
     case WorkStarted(workId) ⇒
       val (work, rest) = pendingWork.dequeue
       require(workId == work.workId, s"WorkStarted expected workId $workId == ${work.workId}")

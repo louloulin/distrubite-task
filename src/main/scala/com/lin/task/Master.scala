@@ -114,16 +114,18 @@ class Master(workTimeout: FiniteDuration) extends PersistentActor with ActorLogg
           notifyWorkers()
         }
       }
-
+    // 收到来自frontened转发的work请求(原始来自Producer)
     case work: Work =>
-      // idempotent
+      // accepted work
       if (workState.isAccepted(work.workId)) {
         sender() ! Master.Ack(work.workId)
       } else {
+        // accept work不存在,添加work到 WorkAccepted列表
         log.info("Accepted work: {}", work.workId)
         persist(WorkAccepted(work)) { event ⇒
           // Ack back to original sender
           sender() ! Master.Ack(work.workId)
+          // 更新 work accepted
           workState = workState.updated(event)
           notifyWorkers()
         }
