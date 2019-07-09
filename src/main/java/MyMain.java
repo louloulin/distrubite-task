@@ -8,10 +8,10 @@ public class MyMain {
         BootStrap.startBackend(2552, "backend");
         BootStrap.startWorker(0,new WorkProcess());
         BootStrap.startWorker(0,new WorkProcess());
-        BootStrap.startWorker(0,new WorkProcess());
-        BootStrap.startWorker(0,new WorkProcess());
-        BootStrap.startWorker(0,new WorkProcess());
-        BootStrap.startWorker(0,new WorkProcess());
+//        BootStrap.startWorker(0,new WorkProcess());
+//        BootStrap.startWorker(0,new WorkProcess());
+//        BootStrap.startWorker(0,new WorkProcess());
+//        BootStrap.startWorker(0,new WorkProcess());
 //        BootStrap.startWorker(6667,new WorkProcess());
 //        BootStrap.startWorker(6668,new WorkProcess());
 //        BootStrap.startWorker(6669,new WorkProcess());

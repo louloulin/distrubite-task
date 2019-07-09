@@ -44,7 +44,7 @@ object BootStrap {
     val system = ActorSystem("ClusterSystem", conf)
 
     startupSharedJournal(system, startStore = (port == 2551), path =
-      ActorPath.fromString("akka.tcp://ClusterSystem@127.0.0.1:2551/user/store"))
+      ActorPath.fromString("akka.tcp://ClusterSystem@172.16.1.75:2551/user/store"))
 
     system.actorOf(
       ClusterSingletonManager.props(
@@ -111,7 +111,7 @@ object BootStrap {
     while (true){
       producer! Tick(WorkSource(n.toString,n.toString,n))
       n += 1
-//      Thread.sleep(1)
+      Thread.sleep(100)
     }
 
   }
